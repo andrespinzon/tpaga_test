@@ -13,6 +13,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
+from environ import Env
+
+env = Env()
+Env.read_env()
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,6 +34,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+API_TPAGA_URL = env('TPAGA_URL')
 
 # Application definition
 

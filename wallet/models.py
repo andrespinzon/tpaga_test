@@ -19,11 +19,13 @@ class Order(Model):
     model_name = 'Order'
 
     id: int = AutoField(primary_key=True)
-    original_id: str = CharField('Original Id', max_length=255, null=False)
+    original_id: str = CharField('Original Id', max_length=255, null=True)
     cost: int = PositiveIntegerField('Cost')
-    idempotency_token: str = CharField('Idempotency Token', max_length=255, null=False)
+    idempotency_token: str = CharField('Idempotency Token', max_length=255, null=True)
     terminal: Optional[Terminal] = ForeignKey(to=Terminal, on_delete=PROTECT)
     items: Dict = JSONField('Items', default=dict)
+    description: str = CharField('Description', max_length=255, null=False)
+    tpaga_transaction: str = CharField('Tpaga Transaction', max_length=255, null=True)
 
     created_at: datetime = DateTimeField('Created At', auto_now_add=True, db_index=True)
     updated_at: datetime = DateTimeField('Updated At', auto_now=True)
