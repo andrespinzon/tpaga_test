@@ -19,6 +19,8 @@ from django.urls import path, include
 from wallet.urls import wallet_urlpatterns
 
 urlpatterns = [
-    path('wallet/', include(wallet_urlpatterns)),
+    path('api/', include([
+        path('wallet/', include(wallet_urlpatterns)),
+    ])),
     path('admin/', admin.site.urls),
 ]
