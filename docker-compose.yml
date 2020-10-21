@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py loaddata seeds/user.json && python manage.py runserver 0.0.0.0:8000 "
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/tpaga_test
+    environment:
+      - DB_NAME=tpaga
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_EXTERNAL=postgresql://postgres:postgres@db:5432/tpaga
+    depends_on:
+      - db
+  db:
+    image: "postgres:11"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=tpaga

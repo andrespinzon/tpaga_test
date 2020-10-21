@@ -1,0 +1,23 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+          "username": "tpaga",
+          "password": "pbkdf2_sha256$216000$vECo8KSWa2nO$d45HMnqeT3MOGw+LwYsOjh31iVhPWOn5ZVQAZz0cuw0=",
+          "email": "tpaga@tpagatest.com",
+          "is_superuser": true,
+          "is_staff": true,
+          "is_active": true
+        }
+    },
+    {
+        "model": "wallet.terminal",
+        "pk": 1,
+        "fields": {
+            "name": "TIENDA 1",
+            "created_at":"2020-10-21 05:30:50.307490",
+            "updated_at":"2020-10-21 05:30:50.307490"
+        }
+    }
+]

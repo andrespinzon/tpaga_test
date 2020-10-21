@@ -34,6 +34,14 @@ class OrdersService:
         self.order.idempotency_token = original_token
         self.order.save()
 
+    @staticmethod
+    def __get_order_by_original_id(original_id: str):
+        try:
+            order = Order.objects.get(original_id=original_id)
+        except Order.DoesNotExist:
+            raise APIException(f'Order with original_id={original_id} doesnt exists.')
+        return order
+
     def create_order_from_view(self, data):
         self.data = data
 
@@ -77,3 +85,26 @@ class OrdersService:
     def get_all():
         orders = Order.objects.all()
         return OrderSerializer(instance=orders, many=True).data
+
+    @staticmethod
+    def get_by_id(original_id: str):
+        order = OrdersService.__get_order_by_original_id(original_id=original_id)
+        return OrderSerializer(instance=order).data
+
+    @staticmethod
+    def get_status_order(original_id: str):
+        order = OrdersService.__get_order_by_original_id(original_id=original_id)
+
+        data_request: Dict = {
+            'payment_request_token': order.tpaga_transaction['token']
+        }
+
+        service = TpagaApi()
+        response = service.get_status_payment(token=order.tpaga_transaction['token'])
+
+        response: Dict = {
+            'original_id': order.original_id,
+            'status': response['status']
+        }
+
+        return response

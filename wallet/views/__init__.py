@@ -1,1 +1,1 @@
-from wallet.views.orders import OrdersView
+from wallet.views.orders import OrdersView, OrderView, OrderStatusView

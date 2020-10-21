@@ -36,3 +36,12 @@ class TpagaApi:
             raise APIException('An error occurred in the transaction.')
 
         return response.json()
+
+    def get_status_payment(self, token: str) -> Dict:
+        endpoint: str = f'{self.api_url}/payment_requests/{token}/info'
+
+        response: Response = self.__session.get(url=endpoint, headers=self.__headers)
+        if not response.ok:
+            raise APIException('An error occurred in the transaction.')
+
+        return response.json()
