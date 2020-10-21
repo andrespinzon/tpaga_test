@@ -20,3 +20,5 @@ class TransactionsService:
 
     def create_payment_from_view(self, data):
         self.data = data
+
+        fields = {'cost', 'purchase_detail_url', ''}
